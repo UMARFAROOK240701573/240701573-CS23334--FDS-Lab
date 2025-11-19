@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Result — Goal Progress</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<main class="container">
+<header>
+<h1>Progress Result 🔎</h1>
+<p class="muted">Quick snapshot and a compact roadmap.</p>
+</header>
+
+
+<section class="card result-card">
+<h2>Goal</h2>
+<p class="goal">{{ goal }}</p>
+
+
+<h2>Skills</h2>
+<p class="skills">{{ skills }}</p>
+
+
+<div class="progress-row">
+<div class="progress-box">
+<div class="label">Progress</div>
+<div class="value">{{ progress if progress is not none else '—' }}%</div>
+</div>
+
+
+<div class="roadmap-box">
+<div class="label">Roadmap</div>
+<div class="steps">
+{% if roadmap %}
+{% for step in roadmap %}
+<div class="step">{{ step }}</div>
+{% endfor %}
+{% else %}
+<div class="muted small">No roadmap returned.</div>
+{% endif %}
+</div>
+</div>
+</div>
+
+
+<details class="raw">
+<summary>Raw response</summary>
+<pre>{{ raw }}</pre>
+</details>
+
+
+<div class="actions">
+<a class="btn ghost" href="/">Try another</a>
+</div>
+</section>
+
+
+<footer class="muted small">Tip: keep steps under two words for best UI fit.</footer>
+</main>
+</body>
+<style>
+    /* 🌈 General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* 🌙 Body Styling */
+body {
+  background: linear-gradient(135deg, #141e30, #243b55);
+  color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* 📦 Main Container */
+.container {
+  max-width: 700px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* 🏷️ Header */
+header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+header .muted {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+/* 🎯 Card Layout */
+.card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px;
+  margin-top: 10px;
+  box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05);
+}
+
+.result-card h2 {
+  font-size: 1.2rem;
+  color: #ffb347;
+  margin-top: 15px;
+}
+
+.goal, .skills {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin: 6px 0 10px;
+  font-size: 1rem;
+  word-wrap: break-word;
+}
+
+/* 📊 Progress + Roadmap Row */
+.progress-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.progress-box, .roadmap-box {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 15px;
+  text-align: center;
+  min-width: 200px;
+}
+
+.label {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #7bed9f;
+  margin-top: 6px;
+}
+
+/* 🧭 Roadmap Steps */
+.steps {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.step {
+  background: #00a8ff;
+  color: #fff;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+.step:hover {
+  transform: scale(1.05);
+}
+
+/* 🧾 Raw Response */
+.raw {
+  margin-top: 25px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 10px;
+}
+.raw summary {
+  cursor: pointer;
+  font-weight: bold;
+  color: #ff9f43;
+}
+.raw pre {
+  margin-top: 10px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-size: 0.85rem;
+  color: #ddd;
+}
+
+/* ⚡ Buttons */
+.actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn {
+  display: inline-block;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: #1e90ff;
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  background: #00a8ff;
+  transform: translateY(-2px);
+}
+
+.btn.ghost {
+  background: transparent;
+  border: 2px solid #1e90ff;
+}
+.btn.ghost:hover {
+  background: #1e90ff;
+}
+
+/* 🧍 Footer */
+footer {
+  text-align: center;
+  margin-top: 20px;
+  color: #aaa;
+  font-size: 0.8rem;
+}
+
+/* 📱 Responsive */
+@media (max-width: 600px) {
+  .progress-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .value {
+    font-size: 1.6rem;
+  }
+  .step {
+    font-size: 0.8rem;
+  }
+}
+
+</style>
+</html>
